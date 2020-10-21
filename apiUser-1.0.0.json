@@ -1,0 +1,130 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Diseño de API REST en Node js usando ExpressJS para el servidor. La aplicación debe gestionar usuarios, de modo que se puedan realizar las siguientes operaciones,Listar todos los usuarios existentes, Listar todos atributos de un usuario, Insertar un nuevo usuario, Actualizar atributos de un usuario en particular, Eliminar un usuario.",
+    "version": "1.0.0",
+    "title": "API REST de usuarios",
+    "contact": {
+      "email": "miiguelangelotabata@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/migueltabata/apiUser/1.0.0",
+  "tags": [
+    {
+      "name": "Migueltabata",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/id": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "todos los usuarios registrados",
+        "description": "Muestra todos los usuarios registrado.\n",
+        "operationId": "userList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "muestrar el usuario que corresponde al id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Criterio de busqueda",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "400": {
+            "description": "Parametro invalido"
+          }
+        }
+      }
+    },
+    "/email": {
+      "post": {
+        "tags": [
+          "Registrar"
+        ],
+        "summary": "Registrar un nuevo usuario",
+        "description": "Registrar un nuevo usuario",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "NewUser",
+            "description": "agregar nuevo usuario",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuario creado"
+          },
+          "400": {
+            "description": "Correo invalido"
+          },
+          "409": {
+            "description": "Usuario existente"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Miguel Tabata"
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-21T09:12:33.001Z"
+        }
+      }
+    }
+  }
+}
